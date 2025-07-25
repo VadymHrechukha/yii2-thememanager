@@ -83,16 +83,17 @@ class Panel extends \yii\debug\Panel implements ViewContextInterface
      */
     public function save()
     {
-        $raw = $this->getManager()->getItems();
-        $themes = ArrayHelper::toArray($raw);
-        foreach ($raw as $name => $theme) {
+        $manager = $this->getManager();
+        $items = $manager->getItems();
+        $themes = ArrayHelper::toArray($items);
+        foreach ($items as $name => $theme) {
             $themes[$name]['class'] = get_class($theme);
         }
 
         return [
             'themes' => $themes,
-            'current' => $this->getManager()->getTheme()->name,
-            'default' => $this->getManager()->getDefaultTheme(),
+            'current' => $manager->getTheme()->name ?? '',
+            'default' => $manager->getDefaultTheme(),
         ];
     }
 }
