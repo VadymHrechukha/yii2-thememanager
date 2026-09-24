@@ -17,6 +17,9 @@ use hiqdev\thememanager\storage\SettingsStorageInterface;
 use Yii;
 use yii\web\Response;
 
+/**
+ * @extends \yii\web\Controller<Module>
+ */
 class SettingsController extends \yii\web\Controller
 {
     /**
@@ -73,7 +76,13 @@ class SettingsController extends \yii\web\Controller
     }
 
     /**
+     * Relies on classes supplied by the host application: the
+     * `uiOptionsStorage` component and `hipanel\models\IndexPageUiOptions`
+     * from hiqdev/hipanel-core, which is not a dependency of this package.
+     * It is only reached when the theme's settings model defines `filterOrientation`.
+     *
      * @param null $orientation
+     * @psalm-suppress UndefinedClass
      */
     public function setGlobalOrientation($orientation = null)
     {
